@@ -55,8 +55,6 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <LoadTheme />
-        {/* TESTING: tweakcn live preview support*/}
-        <script src="http://localhost:3000/live-preview-embed-script.js" />
       </head>
       <ReactScan options={{ enabled: true }} />
 
