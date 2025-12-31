@@ -75,6 +75,74 @@ const generateFontVariables = (themeConfig: ThemeConfig): string => {
   return fontVars;
 };
 
+const generateSpacingVariables = (
+  themeObject: ThemeObject,
+  mode: ThemeMode,
+): string => {
+  const styles = themeObject[mode];
+
+  let spacingVars = "";
+
+  // Base spacing unit
+  if (styles.spacing) {
+    spacingVars += `\n  --spacing: ${styles.spacing};`;
+
+    // Generate spacing scale based on base unit (only in light mode to avoid duplication)
+    if (mode === "light") {
+      spacingVars += `
+  --spacing-0: 0rem;
+  --spacing-1: calc(var(--spacing) * 1);
+  --spacing-2: calc(var(--spacing) * 2);
+  --spacing-3: calc(var(--spacing) * 3);
+  --spacing-4: calc(var(--spacing) * 4);
+  --spacing-5: calc(var(--spacing) * 5);
+  --spacing-6: calc(var(--spacing) * 6);
+  --spacing-8: calc(var(--spacing) * 8);
+  --spacing-10: calc(var(--spacing) * 10);
+  --spacing-12: calc(var(--spacing) * 12);
+  --spacing-16: calc(var(--spacing) * 16);
+  --spacing-20: calc(var(--spacing) * 20);
+  --spacing-24: calc(var(--spacing) * 24);`;
+    }
+  }
+
+  // Button padding (legacy combined format)
+  if (styles["button-padding"]) {
+    spacingVars += `\n  --button-padding: ${styles["button-padding"]};`;
+  }
+
+  // Button padding (separate Y/X)
+  if (styles["button-padding-y"]) {
+    spacingVars += `\n  --button-padding-y: ${styles["button-padding-y"]};`;
+  }
+  if (styles["button-padding-x"]) {
+    spacingVars += `\n  --button-padding-x: ${styles["button-padding-x"]};`;
+  }
+
+  // Input padding
+  if (styles["input-padding-y"]) {
+    spacingVars += `\n  --input-padding-y: ${styles["input-padding-y"]};`;
+  }
+  if (styles["input-padding-x"]) {
+    spacingVars += `\n  --input-padding-x: ${styles["input-padding-x"]};`;
+  }
+
+  // Card padding
+  if (styles["card-padding"]) {
+    spacingVars += `\n  --card-padding: ${styles["card-padding"]};`;
+  }
+
+  // Section padding
+  if (styles["section-padding-y"]) {
+    spacingVars += `\n  --section-padding-y: ${styles["section-padding-y"]};`;
+  }
+  if (styles["section-padding-x"]) {
+    spacingVars += `\n  --section-padding-x: ${styles["section-padding-x"]};`;
+  }
+
+  return spacingVars;
+};
+
 const generateShadowVariables = (
   shadowMap: Record<string, string>,
   themeObject: ThemeObject,
@@ -134,21 +202,27 @@ function generateThemeVariables(
       )
     : ``;
 
+  const spacingVars = generateSpacingVariables(
+    themeConfig.themeObject,
+    mode,
+  );
+
   if (mode === "light") {
-    return `:root {${fontVars}${radiusVar}\n  ${colorVars}${shadowVars}\n}`;
+    return `:root {${fontVars}${radiusVar}\n  ${colorVars}${shadowVars}${spacingVars}\n}`;
   }
 
-  return `.dark {\n  ${colorVars}${shadowVars}\n}`;
+  return `.dark {\n  ${colorVars}${shadowVars}${spacingVars}\n}`;
 }
 
 type ThemeVarsOptions = {
   fontVars?: boolean | undefined;
   shadowVars?: boolean | undefined;
+  spacingVars?: boolean | undefined;
 };
 
 function generateTailwindV4ThemeInline(
   themeConfig: ThemeConfig,
-  { fontVars = false, shadowVars = false }: ThemeVarsOptions,
+  { fontVars = false, shadowVars = false, spacingVars = false }: ThemeVarsOptions,
 ): string {
   const colorVarsInline = `--color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -208,9 +282,27 @@ function generateTailwindV4ThemeInline(
   --shadow-2xl: var(--shadow-2xl);`
     : ``;
 
+  const spacingVarsInline = spacingVars
+    ? `\n
+  --spacing: var(--spacing);
+  --spacing-0: var(--spacing-0);
+  --spacing-1: var(--spacing-1);
+  --spacing-2: var(--spacing-2);
+  --spacing-3: var(--spacing-3);
+  --spacing-4: var(--spacing-4);
+  --spacing-5: var(--spacing-5);
+  --spacing-6: var(--spacing-6);
+  --spacing-8: var(--spacing-8);
+  --spacing-10: var(--spacing-10);
+  --spacing-12: var(--spacing-12);
+  --spacing-16: var(--spacing-16);
+  --spacing-20: var(--spacing-20);
+  --spacing-24: var(--spacing-24);`
+    : ``;
+
   return `@theme inline {${fontVarsInline}
   ${radiusVarsInline}
-  ${colorVarsInline}${shadowVarsInline}
+  ${colorVarsInline}${shadowVarsInline}${spacingVarsInline}
 }`;
 }
 

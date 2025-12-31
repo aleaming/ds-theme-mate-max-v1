@@ -670,6 +670,207 @@ export function ControlsSkeleton({ className }: ComponentProps<"div">) {
   );
 }
 
+// Default spacing values for fallback
+const SPACING_FALLBACKS = {
+  spacing: "0.25rem",
+  "button-padding-y": "0.5rem",
+  "button-padding-x": "1rem",
+  "input-padding-y": "0.5rem",
+  "input-padding-x": "0.75rem",
+  "card-padding": "1.5rem",
+  "section-padding-y": "4rem",
+  "section-padding-x": "1rem",
+};
+
+export function SpacingControl() {
+  const { getToken, setToken } = useTokens();
+
+  // Helper to safely get spacing token with fallback
+  const getSpacingValue = (property: keyof typeof SPACING_FALLBACKS): number => {
+    try {
+      const value = getToken({ property: property as any });
+      return parseFloat((value || SPACING_FALLBACKS[property]).replace("rem", ""));
+    } catch {
+      return parseFloat(SPACING_FALLBACKS[property].replace("rem", ""));
+    }
+  };
+
+  // Base spacing unit
+  const spacingRem = getSpacingValue("spacing");
+
+  // Button padding
+  const buttonPaddingY = getSpacingValue("button-padding-y");
+  const buttonPaddingX = getSpacingValue("button-padding-x");
+
+  // Input padding
+  const inputPaddingY = getSpacingValue("input-padding-y");
+  const inputPaddingX = getSpacingValue("input-padding-x");
+
+  // Card padding
+  const cardPadding = getSpacingValue("card-padding");
+
+  // Section padding
+  const sectionPaddingY = getSpacingValue("section-padding-y");
+  const sectionPaddingX = getSpacingValue("section-padding-x");
+
+  // Helper to update both legacy and new tokens for button padding
+  const updateButtonPadding = (y: number, x: number) => {
+    setToken({ property: "button-padding", value: `${y}rem ${x}rem`, modesInSync: true });
+    setToken({ property: "button-padding-y", value: `${y}rem`, modesInSync: true });
+    setToken({ property: "button-padding-x", value: `${x}rem`, modesInSync: true });
+  };
+
+  return (
+    <div className="space-y-5 font-mono">
+      {/* Base Spacing Unit */}
+      <div className="space-y-2">
+        <p className="text-muted-foreground text-xs font-bold uppercase tracking-wider">
+          Base Unit
+        </p>
+        <SliderWithInput
+          value={spacingRem}
+          onValueChange={(value) =>
+            setToken({
+              property: "spacing",
+              value: `${value}rem`,
+              modesInSync: true,
+            })
+          }
+          min={0.125}
+          max={0.5}
+          step={0.0625}
+          unit="rem"
+          label="--spacing"
+        />
+        <p className="text-muted-foreground text-xs">
+          Base unit for spacing scale (--spacing-1, --spacing-2, etc.)
+        </p>
+      </div>
+
+      {/* Button Padding */}
+      <div className="space-y-2">
+        <p className="text-muted-foreground text-xs font-bold uppercase tracking-wider">
+          Button
+        </p>
+        <SliderWithInput
+          value={buttonPaddingY}
+          onValueChange={(value) => updateButtonPadding(value, buttonPaddingX)}
+          min={0}
+          max={2}
+          step={0.0625}
+          unit="rem"
+          label="--button-padding-y"
+        />
+        <SliderWithInput
+          value={buttonPaddingX}
+          onValueChange={(value) => updateButtonPadding(buttonPaddingY, value)}
+          min={0}
+          max={4}
+          step={0.0625}
+          unit="rem"
+          label="--button-padding-x"
+        />
+      </div>
+
+      {/* Input Padding */}
+      <div className="space-y-2">
+        <p className="text-muted-foreground text-xs font-bold uppercase tracking-wider">
+          Input
+        </p>
+        <SliderWithInput
+          value={inputPaddingY}
+          onValueChange={(value) =>
+            setToken({
+              property: "input-padding-y",
+              value: `${value}rem`,
+              modesInSync: true,
+            })
+          }
+          min={0}
+          max={2}
+          step={0.0625}
+          unit="rem"
+          label="--input-padding-y"
+        />
+        <SliderWithInput
+          value={inputPaddingX}
+          onValueChange={(value) =>
+            setToken({
+              property: "input-padding-x",
+              value: `${value}rem`,
+              modesInSync: true,
+            })
+          }
+          min={0}
+          max={2}
+          step={0.0625}
+          unit="rem"
+          label="--input-padding-x"
+        />
+      </div>
+
+      {/* Card Padding */}
+      <div className="space-y-2">
+        <p className="text-muted-foreground text-xs font-bold uppercase tracking-wider">
+          Card
+        </p>
+        <SliderWithInput
+          value={cardPadding}
+          onValueChange={(value) =>
+            setToken({
+              property: "card-padding",
+              value: `${value}rem`,
+              modesInSync: true,
+            })
+          }
+          min={0}
+          max={4}
+          step={0.125}
+          unit="rem"
+          label="--card-padding"
+        />
+      </div>
+
+      {/* Section Padding */}
+      <div className="space-y-2">
+        <p className="text-muted-foreground text-xs font-bold uppercase tracking-wider">
+          Section
+        </p>
+        <SliderWithInput
+          value={sectionPaddingY}
+          onValueChange={(value) =>
+            setToken({
+              property: "section-padding-y",
+              value: `${value}rem`,
+              modesInSync: true,
+            })
+          }
+          min={0}
+          max={8}
+          step={0.25}
+          unit="rem"
+          label="--section-padding-y"
+        />
+        <SliderWithInput
+          value={sectionPaddingX}
+          onValueChange={(value) =>
+            setToken({
+              property: "section-padding-x",
+              value: `${value}rem`,
+              modesInSync: true,
+            })
+          }
+          min={0}
+          max={4}
+          step={0.25}
+          unit="rem"
+          label="--section-padding-x"
+        />
+      </div>
+    </div>
+  );
+}
+
 export function ShadowsControl() {
   const { getToken, setToken, setColorToken } = useTokens();
 

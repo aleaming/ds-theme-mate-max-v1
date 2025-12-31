@@ -54,7 +54,7 @@ pnpm install
 pnpm dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+4. Open [http://localhost:6789](http://localhost:6789) in your browser.
 
 ## License
 

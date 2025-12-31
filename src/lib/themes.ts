@@ -17,6 +17,37 @@ export const DEFAULT_RADIUS = "0.625rem"; // 10px
 
 export const DEFAULT_SURFACE = "default";
 
+export const DEFAULT_SPACING = "0.25rem"; // Tailwind's default spacing unit (1)
+
+// Button padding
+export const DEFAULT_BUTTON_PADDING = "0.5rem 1rem"; // Typical button padding (y x) - legacy combined format
+export const DEFAULT_BUTTON_PADDING_Y = "0.5rem"; // Vertical button padding
+export const DEFAULT_BUTTON_PADDING_X = "1rem"; // Horizontal button padding
+
+// Input padding
+export const DEFAULT_INPUT_PADDING_Y = "0.5rem"; // Vertical input padding
+export const DEFAULT_INPUT_PADDING_X = "0.75rem"; // Horizontal input padding
+
+// Card padding
+export const DEFAULT_CARD_PADDING = "1.5rem"; // Card content padding
+
+// Section padding
+export const DEFAULT_SECTION_PADDING_Y = "4rem"; // Vertical section padding
+export const DEFAULT_SECTION_PADDING_X = "1rem"; // Horizontal section padding
+
+// Fallback defaults for spacing tokens (used when token not found in theme)
+export const SPACING_DEFAULTS: Record<string, string> = {
+  spacing: DEFAULT_SPACING,
+  "button-padding": DEFAULT_BUTTON_PADDING,
+  "button-padding-y": DEFAULT_BUTTON_PADDING_Y,
+  "button-padding-x": DEFAULT_BUTTON_PADDING_X,
+  "input-padding-y": DEFAULT_INPUT_PADDING_Y,
+  "input-padding-x": DEFAULT_INPUT_PADDING_X,
+  "card-padding": DEFAULT_CARD_PADDING,
+  "section-padding-y": DEFAULT_SECTION_PADDING_Y,
+  "section-padding-x": DEFAULT_SECTION_PADDING_X,
+};
+
 // from  @node_modules/tailwindcss/theme.css
 export const DEFAULT_FONTS = {
   "font-sans": `ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
@@ -50,10 +81,28 @@ export const initialThemeConfig: ThemeConfig = {
     light: {
       ...basePresetsV4.neutral.light,
       ...DEFAULT_SHADOWS,
+      spacing: DEFAULT_SPACING,
+      "button-padding": DEFAULT_BUTTON_PADDING,
+      "button-padding-y": DEFAULT_BUTTON_PADDING_Y,
+      "button-padding-x": DEFAULT_BUTTON_PADDING_X,
+      "input-padding-y": DEFAULT_INPUT_PADDING_Y,
+      "input-padding-x": DEFAULT_INPUT_PADDING_X,
+      "card-padding": DEFAULT_CARD_PADDING,
+      "section-padding-y": DEFAULT_SECTION_PADDING_Y,
+      "section-padding-x": DEFAULT_SECTION_PADDING_X,
     },
     dark: {
       ...basePresetsV4.neutral.dark,
       "shadow-color": DEFAULT_SHADOWS["shadow-color"],
+      spacing: DEFAULT_SPACING,
+      "button-padding": DEFAULT_BUTTON_PADDING,
+      "button-padding-y": DEFAULT_BUTTON_PADDING_Y,
+      "button-padding-x": DEFAULT_BUTTON_PADDING_X,
+      "input-padding-y": DEFAULT_INPUT_PADDING_Y,
+      "input-padding-x": DEFAULT_INPUT_PADDING_X,
+      "card-padding": DEFAULT_CARD_PADDING,
+      "section-padding-y": DEFAULT_SECTION_PADDING_Y,
+      "section-padding-x": DEFAULT_SECTION_PADDING_X,
     },
   },
 };

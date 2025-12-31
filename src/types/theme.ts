@@ -45,6 +45,9 @@ export type ColorProperties = {
   "sidebar-border": string;
   "sidebar-ring": OklchValue | string;
   "shadow-color"?: string;
+  "button-padding"?: string;
+  "section-padding-y"?: string;
+  "section-padding-x"?: string;
 };
 
 export type ThemeProperties = {
@@ -92,6 +95,14 @@ export type ThemeProperties = {
   "shadow-offset-y"?: string;
   spacing?: string;
   "letter-spacing"?: string;
+  "button-padding"?: string;
+  "button-padding-y"?: string;
+  "button-padding-x"?: string;
+  "input-padding-y"?: string;
+  "input-padding-x"?: string;
+  "card-padding"?: string;
+  "section-padding-y"?: string;
+  "section-padding-x"?: string;
 };
 export type ThemeProperty = keyof ThemeProperties;
 

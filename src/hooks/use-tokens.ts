@@ -1,5 +1,5 @@
 import { allPresetsArray, surfaceShadesPresets } from "@/lib/colors";
-import { initialThemeConfig } from "@/lib/themes";
+import { initialThemeConfig, SPACING_DEFAULTS } from "@/lib/themes";
 import {
   ColorProperty,
   OklchValue,
@@ -32,7 +32,8 @@ export function useTokens() {
 
       const token =
         currentThemeObject[resolvedMode][property] ??
-        initialThemeConfig.themeObject[resolvedMode][property];
+        initialThemeConfig.themeObject[resolvedMode][property] ??
+        SPACING_DEFAULTS[property];
 
       if (!token) {
         throw new Error(`Token "${property}" not found in theme object`);

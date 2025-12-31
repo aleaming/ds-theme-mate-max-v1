@@ -23,6 +23,14 @@ const FALLBACKS = {
   spacing: "0.25rem",
   "letter-spacing": "0em",
   "shadow-color": "#000000",
+  "button-padding": "0.5rem 1rem",
+  "button-padding-y": "0.5rem",
+  "button-padding-x": "1rem",
+  "input-padding-y": "0.5rem",
+  "input-padding-x": "0.75rem",
+  "card-padding": "1.5rem",
+  "section-padding-y": "4rem",
+  "section-padding-x": "1rem",
 } satisfies Partial<Record<ThemeProperty, string>>;
 
 const THEMES_DIR = path.join(process.cwd(), "public", "r", "themes");
@@ -159,6 +167,30 @@ export function buildThemeRegistryItem(themeObject: ThemeObject) {
         "tracking-normal":
           getThemeValue(dark, light, "letter-spacing") ||
           FALLBACKS["letter-spacing"],
+        "button-padding":
+          getThemeValue(dark, light, "button-padding") ||
+          FALLBACKS["button-padding"],
+        "button-padding-y":
+          getThemeValue(dark, light, "button-padding-y") ||
+          FALLBACKS["button-padding-y"],
+        "button-padding-x":
+          getThemeValue(dark, light, "button-padding-x") ||
+          FALLBACKS["button-padding-x"],
+        "input-padding-y":
+          getThemeValue(dark, light, "input-padding-y") ||
+          FALLBACKS["input-padding-y"],
+        "input-padding-x":
+          getThemeValue(dark, light, "input-padding-x") ||
+          FALLBACKS["input-padding-x"],
+        "card-padding":
+          getThemeValue(dark, light, "card-padding") ||
+          FALLBACKS["card-padding"],
+        "section-padding-y":
+          getThemeValue(dark, light, "section-padding-y") ||
+          FALLBACKS["section-padding-y"],
+        "section-padding-x":
+          getThemeValue(dark, light, "section-padding-x") ||
+          FALLBACKS["section-padding-x"],
       },
       dark: {
         ...cleanUpDarkModeStyles(dark),

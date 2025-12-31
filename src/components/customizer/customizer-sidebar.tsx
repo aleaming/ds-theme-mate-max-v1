@@ -19,7 +19,6 @@ import { Skeleton } from "../ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { ActionButtons } from "./action-buttons";
 import { ColorTokens } from "./color-tokens";
-import { ComingSoon } from "./coming-soon";
 import {
   AllPresetsControl,
   ControlSection,
@@ -27,6 +26,7 @@ import {
   RadiusSliderControl,
   ShadowsControl,
   SurfaceShadesControl,
+  SpacingControl,
 } from "./customizer-controls";
 import { Typography } from "./typography";
 
@@ -120,7 +120,7 @@ export function CustomizerSidebar({
                 </ControlSection>
 
                 <ControlSection title="Spacing">
-                  <ComingSoon />
+                  <SpacingControl />
                 </ControlSection>
               </section>
             </TabsContent>
